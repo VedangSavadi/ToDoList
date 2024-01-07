@@ -28,7 +28,8 @@
    - Set the Display name of your choice.
    - Click on the `Login` tab and ON `user registration` , `forgot password` , `login with email`
    - Create a new client with Client ID 'todolist' and set the root URL to `http://localhost:5000`.
-   - Click on `keys` tab in the clients section and set the key and store passowords and copy the `certificate` which is the client secret key and add it to the `client_secrets.json` file.
+   - Click on `keys` tab in the clients section and set the key and store passwords and click on `generate certificate`.
+   - Copy the `certificate` which is the client secret key and add it to the `client_secrets.json` file.
 
    **NOTE:** If you change the name of the realm and client ID then you can do the necessary changes in the `client_secrets.json` file.
 
@@ -60,7 +61,7 @@
    - For other payment-related testing, visit [Stripe Testing Cards](https://stripe.com/docs/testing#use-test-cards).
 
 10. **GraphQL API:**
-    - Access GraphQL API at `localhost:5000/graphql`.
+    - Access GraphQL API at `http://localhost:5000/graphql`.
     - Example GraphQL query:
       ```graphql
       query {
