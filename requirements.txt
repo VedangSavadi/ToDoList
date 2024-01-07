@@ -1,0 +1,10 @@
+Flask  
+requests
+Flask-SQLAlchemy
+flask-oidc
+flask-session
+stripe
+Flask-GraphQL
+graphql-core
+Flask-Uploads
+graphene
