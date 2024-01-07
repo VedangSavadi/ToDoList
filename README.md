@@ -33,7 +33,7 @@
    - Click on `keys` tab in the clients section and set the key and store passwords and click on `generate certificate`.
    - Copy the `certificate` which is the client secret key and add it to the `client_secrets.json` file.
 
-   **NOTE:** If you change the name of the realm and client ID then you can do the necessary changes in the `client_secrets.json` file.
+   **NOTE:** If you change the name of the realm and client ID then you have to do the necessary changes in the `client_secrets.json` file.
 
 6. **Run the App:**
    - In VSCode terminal, run the following commands:
@@ -43,7 +43,7 @@
     ```bash
      python app.py
     ```
-   - If there's any error after running the above commands you can create and virtual environment and install the `requirements.txt`.
+   - If there's any error after running the above commands you can create a virtual environment and install the `requirements.txt`.
 
 
 7. **Check the App:**
