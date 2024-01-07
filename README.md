@@ -1,4 +1,4 @@
-# Your App Name
+# To-Do List App
 
 ## Steps to Start the App
 
@@ -16,24 +16,36 @@
    - Open Git Bash terminal in VSCode and run the following commands:
      ```bash
      docker pull jboss/keycloak
+     ```
+     ```bash
      docker run -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8080:8080 jboss/keycloak
      ```
 
 5. **Keycloak Configuration:**
-   - Visit `localhost:8080/auth` in a browser.
+   - Visit `http://localhost:8080/auth` in a browser.
    - Log in with username = admin and password = admin.
    - Create a new realm named 'myapprealm'.
-   - Create a new client with Client ID 'todolist' and set the root URL to `localhost:5000`.
-   - Generate the client secret key and add it to the `client_secrets.json` file.
+   - Set the Display name of your choice.
+   - Click on the `Login` tab and ON `user registration` , `forgot password` , `login with email`
+   - Create a new client with Client ID 'todolist' and set the root URL to `http://localhost:5000`.
+   - Click on `keys` tab in the clients section and set the key and store passowords and copy the `certificate` which is the client secret key and add it to the `client_secrets.json` file.
+
+   **NOTE:** If you change the name of the realm and client ID then you can do the necessary changes in the `client_secrets.json` file.
 
 6. **Run the App:**
-   - In VSCode terminal, run the following command:
-     ```bash
+   - In VSCode terminal, run the following commands:
+    ```bash
+     source flaskproj/Scripts/activate
+    ```
+    ```bash
      python app.py
-     ```
+    ```
+   - If there's any error after running the above commands you can create and virtual environment and install the `requirements.txt`.
+
 
 7. **Check the App:**
-   - Visit `localhost:5000` to ensure the app is running successfully.
+   - Visit `http://localhost:5000` to ensure the app is running successfully.
+   - Click on 'register' when you see the Login page as we have not created any user earlier.
 
 8. **Pro License Feature:**
    - Click on 'Update to Pro'.
