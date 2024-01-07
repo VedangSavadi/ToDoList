@@ -59,21 +59,6 @@ def logout():
         oidc.logout()
     return redirect(oidc.client_secrets['issuer'] + '/protocol/openid-connect/logout?redirect_uri=' + url_for('logout', _external=True))
 
-# main code
-# @app.route('/')
-# @oidc.require_login
-# def index():
-#     if request.method == 'GET':
-#         todos = ToDo.query.order_by(ToDo.timestamp.desc()).all()
-#         user = User.query.filter_by(username=oidc.user_getfield('preferred_username')).first()
-#         return render_template('index.html', todos=todos, current_user=user)
-#     elif request.method == 'POST':
-#         title = request.form['title']
-#         description = request.form['description']
-#         new_todo = ToDo(title=title, description=description)
-#         db.session.add(new_todo)
-#         db.session.commit()
-#         return redirect(url_for('index'))
 
 @app.route('/', methods=['GET', 'POST'])
 @oidc.require_login
@@ -106,11 +91,6 @@ def index():
         db.session.commit()
         return redirect(url_for('index'))
 
-# @app.route('/')
-# @oidc.require_login
-# def index():
-#     todos = ToDo.query.order_by(ToDo.timestamp.desc()).all()
-#     return render_template('index.html', todos=todos)
         
 
 from flask_uploads import UploadSet, configure_uploads , IMAGES
@@ -274,42 +254,6 @@ class SecureGraphQLView(GraphQLView):
 # Use the custom SecureGraphQLView for your /graphql endpoint
 app.add_url_rule('/graphql', view_func=SecureGraphQLView.as_view('graphql', schema=schema, graphiql=True))
 
-# app.add_url_rule(
-#     '/graphql',
-#     view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True)
-# )
-# GraphQL view
-# GraphQL view
-# class MyGraphQLView(MethodView):
-#     @oidc.require_login
-#     def post(self):
-#         data = request.get_json()
-#         query = data.get('query')
-#         variables = data.get('variables')
-
-#         result = schema.execute(query, variables=variables)
-#         return jsonify(result.data)
-
-#     @oidc.require_login
-#     def get(self):
-#         query = request.args.get('query')
-#         if query:
-#             result = schema.execute(query)
-#             return jsonify(result.data)
-#         return jsonify({'error': 'No query provided'})
-
-# app.add_url_rule('/graphql', view_func=MyGraphQLView.as_view('graphql'))
-
-# Create a new route to handle GraphQL queries via a web interface
-# @app.route('/graphql/web', methods=['GET', 'POST'])
-# @oidc.require_login
-# def graphql_web():
-#     if request.method == 'POST':
-#         query = request.form['query']
-#         if query:
-#             result = schema.execute(query)
-#             return render_template('graphql_result.html', result=result.data)
-#     return render_template('graphql_form.html')
 
 # Run the function to create tables when the script runs
 if __name__ == '__main__':
