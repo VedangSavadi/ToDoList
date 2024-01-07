@@ -1,6 +1,6 @@
 # To-Do List App with Keycloak Authentication and Stripe Payment
 
-### To-do Flask webapp that uses keycloak for Authentication to let the user log in and add a to-do with title, description and time. All the API calls are handled by Graphql. There will be a option to buy a Pro license that will enable user to upload images in To-Do as well.
+To-do Flask webapp that uses keycloak for Authentication to let the user log in and add a to-do with title, description and time. All the API calls are handled by Graphql. There will be a option to buy a Pro license that will enable user to upload images in To-Do as well.
 
 ## Steps to Start the App
 
