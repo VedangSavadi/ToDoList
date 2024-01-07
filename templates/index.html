@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 2rem;
+        }
+        .table th {
+            text-align: center;
+        }
+        .table td {
+            vertical-align: middle !important;
+        }
+    </style>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Flash message display -->
+    <!-- Flash message display for payment-related messages -->
+    <div id="payment-flash-message">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'payment_success' %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% elif category == 'payment_failure' %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <script>
+        function hidePaymentFlashedMessage() {
+            var paymentFlashMessage = document.getElementById('payment-flash-message');
+            if (paymentFlashMessage) {
+                setTimeout(function() {
+                    paymentFlashMessage.style.display = 'none';
+                }, 5000); // Adjust the delay (in milliseconds) as needed
+            }
+        }
+
+        window.onload = hidePaymentFlashedMessage;
+    </script>  
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">To-Do List</h1>
+            <div class="d-flex">
+                {% if not current_user.is_pro %}
+                    <form action="/create-checkout-session" method="POST" class="me-2">
+                        <button type="submit" class="btn btn-success">Upgrade to Pro</button>
+                    </form>
+                {% endif %}
+                <form action="/logout" method="post">
+                    <button type="submit" class="btn btn-danger">Sign Out</button>
+                </form>
+            </div>
+        </div>
+     
+        <!-- Add New To-Do -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Add New To-Do</h2>
+                <form method="POST" action="/add" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title:</label>
+                        <input type="text" id="title" name="title" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <input type="text" id="description" name="description" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        {% if current_user.is_pro %}
+                            <label for="image" class="form-label">Image:</label>
+                            <input type="file" id="image" name="image" accept="image/*" class="form-control">
+                        {% else %}
+                            <label for="image" class="form-label">Image (Pro users only):</label>
+                            <div class="input-group">
+                                <input type="file" id="image" name="image" accept="image/*" class="form-control" disabled>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    
+        <!-- Display existing To-Dos -->
+        <div>
+            <h2>Existing To-Dos</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Timestamp</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                        <tr>
+                            <td>{{ todo.title }}</td>
+                            <td>{{ todo.description }}</td>
+                            <td>{{ todo.timestamp }}</td>
+                            <td>
+                                {% if todo.image_path %}
+                                    <img src="{{ todo.image_path }}" alt="{{ todo.image_path }}" class="img-thumbnail" style="max-width: 100px;">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/edit/{{ todo.id }}" class="btn btn-primary">Edit</a>
+                                <a href="/delete/{{ todo.id }}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

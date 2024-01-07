@@ -1,0 +1,5 @@
+# Ignore compiled Python files
+__pycache__/
+
+# Ignore instance-specific configurations and secrets
+instance/
